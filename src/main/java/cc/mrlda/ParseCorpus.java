@@ -400,10 +400,10 @@ public class ParseCorpus extends Configured implements Tool {
     Counters counters = job.getCounters();
     int[] corpusStatistics = new int[2];
 
-    corpusStatistics[0] = (int) counters.findCounter(MyCounter.TOTAL_DOCS).getCounter();
+    corpusStatistics[0] = (int) counters.getCounter(MyCounter.TOTAL_DOCS);
     sLogger.info("Total number of documents is: " + corpusStatistics[0]);
 
-    corpusStatistics[1] = (int) counters.findCounter(MyCounter.TOTAL_TERMS).getCounter();
+    corpusStatistics[1] = (int) counters.getCounter(MyCounter.TOTAL_TERMS);
     sLogger.info("Total number of terms is: " + corpusStatistics[1]);
 
     return corpusStatistics;
@@ -541,15 +541,15 @@ public class ParseCorpus extends Configured implements Tool {
       sLogger.info("Successfully index all the terms at " + outputTermFile);
 
       Counters counters = job.getCounters();
-      int lowDocumentFrequencyTerms = (int) counters.findCounter(
-          MyCounter.LOW_DOCUMENT_FREQUENCY_TERMS).getCounter();
+      int lowDocumentFrequencyTerms = (int) counters.getCounter(
+          MyCounter.LOW_DOCUMENT_FREQUENCY_TERMS);
       sLogger.info("Removed " + lowDocumentFrequencyTerms + " low frequency terms.");
 
-      int highDocumentFrequencyTerms = (int) counters.findCounter(
-          MyCounter.HIGH_DOCUMENT_FREQUENCY_TERMS).getCounter();
+      int highDocumentFrequencyTerms = (int) counters.getCounter(
+          MyCounter.HIGH_DOCUMENT_FREQUENCY_TERMS);
       sLogger.info("Removed " + highDocumentFrequencyTerms + " high frequency terms.");
 
-      int leftOverTerms = (int) counters.findCounter(MyCounter.LEFT_OVER_TERMS).getCounter();
+      int leftOverTerms = (int) counters.getCounter(MyCounter.LEFT_OVER_TERMS);
       sLogger.info("Total number of left-over terms: " + leftOverTerms);
     } finally {
       fs.delete(outputPath, true);
@@ -684,10 +684,10 @@ public class ParseCorpus extends Configured implements Tool {
     sLogger.info("Successfully index all the documents at " + outputDocumentFiles);
 
     Counters counters = job.getCounters();
-    int collapsedDocuments = (int) counters.findCounter(MyCounter.COLLAPSED_DOCUMENTS).getCounter();
+    int collapsedDocuments = (int) counters.getCounter(MyCounter.COLLAPSED_DOCUMENTS);
     sLogger.info("Total number of collapsed documnts: " + collapsedDocuments);
 
-    int leftOverDocuments = (int) counters.findCounter(MyCounter.LEFT_OVER_DOCUMENTS).getCounter();
+    int leftOverDocuments = (int) counters.getCounter(MyCounter.LEFT_OVER_DOCUMENTS);
     sLogger.info("Total number of left-over documents: " + leftOverDocuments);
 
     return outputDocumentFiles;
