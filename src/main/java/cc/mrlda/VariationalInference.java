@@ -258,19 +258,19 @@ public class VariationalInference extends Configured implements Tool {
             + (System.currentTimeMillis() - startTime) / 1000.0 + " seconds");
 
         Counters counters = job.getCounters();
-        double logLikelihood = -counters.findCounter(ParameterCounter.LOG_LIKELIHOOD).getCounter()
+        double logLikelihood = -counters.getCounter(ParameterCounter.LOG_LIKELIHOOD)
             * 1.0 / Settings.DEFAULT_COUNTER_SCALE;
         sLogger.info("Log likelihood of the model is: " + logLikelihood);
 
-        numberOfDocuments = (int) counters.findCounter(ParameterCounter.TOTAL_DOCS).getCounter();
+        numberOfDocuments = (int) counters.getCounter(ParameterCounter.TOTAL_DOCS);
         sLogger.info("Total number of documents is: " + numberOfDocuments);
-        numberOfTerms = (int) (counters.findCounter(ParameterCounter.TOTAL_TERMS).getCounter() / numberOfTopics);
+        numberOfTerms = (int) (counters.getCounter(ParameterCounter.TOTAL_TERMS) / numberOfTopics);
         sLogger.info("Total number of terms is: " + numberOfTerms);
 
-        double configurationTime = counters.findCounter(ParameterCounter.CONFIG_TIME).getCounter()
+        double configurationTime = counters.getCounter(ParameterCounter.CONFIG_TIME)
             * 1.0 / numberOfDocuments;
         sLogger.info("Average time elapsed for mapper configuration (ms): " + configurationTime);
-        double trainingTime = counters.findCounter(ParameterCounter.TRAINING_TIME).getCounter()
+        double trainingTime = counters.getCounter(ParameterCounter.TRAINING_TIME)
             * 1.0 / numberOfDocuments;
         sLogger.info("Average time elapsed for processing a document (ms): " + trainingTime);
 
